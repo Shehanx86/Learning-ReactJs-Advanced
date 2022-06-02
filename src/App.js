@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { Component, createContext } from "react";
+import ChildComponent1 from "./ChildComponent1";
+import ChildComponent2 from "./ChildComponent2";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export const MyContext = createContext();
+
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      clicked: false
+    }
+  }
+  render() {
+    return (
+      <MyContext.Provider value={this.state.clicked}>
+      <button onClick={() => this.setState({clicked: !this.state.clicked})}>Change theme</button>
+      <ChildComponent1 />
+      <ChildComponent2 />
+    </MyContext.Provider>
+    );
+  }
 }
-
-export default App;
